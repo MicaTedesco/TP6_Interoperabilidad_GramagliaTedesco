@@ -1,6 +1,7 @@
 from patient import create_patient_resource
 from base import get_patient_by_identifier
 from base import send_resource_to_hapi_fhir, get_resource_from_hapi_fhir
+from procedure import create_procedure_resource
 
 if __name__ == "__main__":
     # Parámetros del paciente (se puede dejar algunos vacíos)
@@ -17,4 +18,16 @@ if __name__ == "__main__":
     # Ver el recurso de paciente creado
     if patient_id:
         get_resource_from_hapi_fhir(patient_id,'Patient')
-        get_patient_by_identifier("1234567811111111")
+        #get_patient_by_identifier("1234567811111111")
+    
+    #cirguía plástico SCTID: 394611003
+    proc = create_procedure_resource(
+        status="completed",
+        code="394611003",         # código SNOMED para cirugía plástico
+        subject=patient_id,         # Patient/{patient_id}
+        text="Cirugía Plástica",
+        documento="1234567811111111"   # DNI que irá en reference.identifier.value
+    )
+    procedure_id = send_resource_to_hapi_fhir(proc, 'Procedure')
+    if procedure_id:
+        get_resource_from_hapi_fhir(procedure_id,'Procedure')
