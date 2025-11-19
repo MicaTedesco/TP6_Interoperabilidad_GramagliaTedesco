@@ -16,3 +16,11 @@
 ![Logo ITBA](https://upload.wikimedia.org/wikipedia/commons/e/ed/Itba_bsas_logo.png)
 
 **Fecha de entrega:** 19/11/2025
+
+## Descripción
+Este repositorio contiene la resolución correspondiente a la actividad 3 del TP6, la cual consistió en el uso de recursos FHIR mediante la implementación de Python y la interacción con el servidor público de HAPI FHIR.
+
+## Estructura
+- Actividad 3a - Crear y leer un recurso paciente --> Archivo: [`crearpaciente.py`](crearpaciente.py)  
+- Actividad 3b - Búsqueda de pacientes por documento --> Archivo: [`buscarpaciente.py`](buscarpaciente.py)  
+- Actividad 3c - Crear un recurso Procedure --> Archivo: [`Procedure.py`](procedure.py)  
