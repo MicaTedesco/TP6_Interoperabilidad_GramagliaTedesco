@@ -6,16 +6,16 @@ from fhir.resources.coding import Coding
 from fhir.resources.annotation import Annotation
 from datetime import datetime
 
-def create_procedure_resource(patient_id, documento):
+def create_procedure_resource(patient_id, documento_paciente, practitioner_id, fecha_procedimiento):
     procedure = Procedure.construct()
     procedure.status = "completed"
 
-    # IDENTIFIER
+    # SUBJECT + DNI ARGENTINO
     subject = Reference.construct()
     subject.reference = f"Patient/{patient_id}"
     subject.identifier = Identifier.construct()
     subject.identifier.system = "http://www.renaper.gob.ar/dni"
-    subject.identifier.value = documento
+    subject.identifier.value = documento_paciente
     procedure.subject = subject
 
     # CÓDIGO SNOMED CT - CURACIÓN DE HERIDA
@@ -23,7 +23,8 @@ def create_procedure_resource(patient_id, documento):
     procedure.code.coding = [Coding.construct(system="http://snomed.info/sct", code="225358003", display="Curación de herida")]
     procedure.code.text = "Curación de herida"
 
-    procedure.performedDateTime = datetime.now().isoformat()
+    # FECHA DEL PROCEDIMIENTO
+    procedure.performedDateTime = fecha_procedimiento
 
     # MOTIVO: HERIDA CORTANTE EN ANTEBRAZO IZQUIERDO
     procedure.reasonCode = [CodeableConcept.construct(coding=[Coding.construct(
@@ -32,7 +33,7 @@ def create_procedure_resource(patient_id, documento):
         display="Herida cortante en antebrazo izquierdo"
     )])]
 
-    # RESULTADO
+    # OUTCOME
     procedure.outcome = CodeableConcept.construct(text="Herida limpia, sin signos de infección, buena evolución")
 
     # NOTA CLÍNICA
@@ -41,5 +42,13 @@ def create_procedure_resource(patient_id, documento):
     note.time = datetime.now().isoformat()
     procedure.note = [note]
 
+    # MÉDICO RESPONSABLE
+    performer_ref = Reference.construct()
+    performer_ref.reference = f"Practitioner/{practitioner_id}"
+    performer_ref.display = "Dr. Eric van den Broek"
+
+    procedure.performer = [{
+        "actor": performer_ref
+    }]
 
     return procedure
