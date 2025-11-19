@@ -6,7 +6,7 @@ from fhir.resources.coding import Coding
 from fhir.resources.annotation import Annotation
 from datetime import datetime
 
-def create_procedure_resource(patient_id, documento_paciente, practitioner_id, fecha_procedimiento):
+def create_procedure_resource(patient_id, documento_paciente, practitioner_id, fecha_procedimiento,SNOMED_procedure_code=None, SNOMED_procedure_text=None  ,SNOMED_reason_code= None, SNOMED_reason_text=None,outcome_text=None, note_text=None):
     procedure = Procedure.construct()
     procedure.status = "completed"
 
@@ -20,8 +20,8 @@ def create_procedure_resource(patient_id, documento_paciente, practitioner_id, f
 
     # CÓDIGO SNOMED CT - PROCEDIMIENTO: CURACIÓN DE HERIDA
     procedure.code = CodeableConcept.construct()
-    procedure.code.coding = [Coding.construct(system="http://snomed.info/sct", code="225358003", display="Curación de herida")]
-    procedure.code.text = "Curación de herida"
+    procedure.code.coding = [Coding.construct(system="http://snomed.info/sct", code=SNOMED_procedure_code, display=SNOMED_procedure_text)]
+    procedure.code.text = SNOMED_procedure_text
 
     # FECHA DEL PROCEDIMIENTO
     procedure.performedDateTime = fecha_procedimiento
@@ -29,16 +29,16 @@ def create_procedure_resource(patient_id, documento_paciente, practitioner_id, f
     # CÓDIGO SNOMED CT - MOTIVO: HERIDA CORTANTE EN ANTEBRAZO IZQUIERDO
     procedure.reasonCode = [CodeableConcept.construct(coding=[Coding.construct(
         system="http://snomed.info/sct",
-        code="10960321000119104",
-        display="Herida cortante en antebrazo izquierdo"
+        code=SNOMED_reason_code,
+        display=SNOMED_reason_text
     )])]
 
     # RESULTADO
-    procedure.outcome = CodeableConcept.construct(text="Herida limpia, sin signos de infección, buena evolución")
+    procedure.outcome = CodeableConcept.construct(text=outcome_text)
 
     # NOTA CLÍNICA
     note = Annotation.construct()
-    note.text = "Curación de herida cortante en antebrazo izquierdo por accidente doméstico. Se realizó limpieza con solución fisiológica, aplicación de antiséptico y vendaje oclusivo. El paciente toleró bien el procedimiento."
+    note.text = note_text
     note.time = datetime.now().isoformat()
     procedure.note = [note]
 
