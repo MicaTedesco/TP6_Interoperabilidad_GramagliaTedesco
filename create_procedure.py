@@ -10,7 +10,7 @@ def create_procedure_resource(patient_id, documento):
     procedure = Procedure.construct()
     procedure.status = "completed"
 
-    # SUBJECT + DNI ARGENTINO
+    # IDENTIFIER
     subject = Reference.construct()
     subject.reference = f"Patient/{patient_id}"
     subject.identifier = Identifier.construct()
@@ -32,7 +32,7 @@ def create_procedure_resource(patient_id, documento):
         display="Herida cortante en antebrazo izquierdo"
     )])]
 
-    # OUTCOME
+    # RESULTADO
     procedure.outcome = CodeableConcept.construct(text="Herida limpia, sin signos de infección, buena evolución")
 
     # NOTA CLÍNICA
@@ -40,5 +40,6 @@ def create_procedure_resource(patient_id, documento):
     note.text = "Curación de herida cortante en antebrazo izquierdo por accidente doméstico. Se realizó limpieza con solución fisiológica, aplicación de antiséptico y vendaje oclusivo. El paciente toleró bien el procedimiento."
     note.time = datetime.now().isoformat()
     procedure.note = [note]
+
 
     return procedure
