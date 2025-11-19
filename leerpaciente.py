@@ -1,11 +1,11 @@
-from crearpaciente import create_patient_resource
+from patient import create_patient_resource
 from base import send_resource_to_hapi_fhir, get_resource_from_hapi_fhir
 
 if __name__ == "__main__":
     # Parámetros del paciente (se puede dejar algunos vacíos)
     family_name = "Tedesco"
     given_name = "Micaela Rocio"
-    birth_date = "2000-08-22"
+    birth_date = "2000-08-21"
     gender = "female"
     phone = 1161751010 
     documento = 42843082

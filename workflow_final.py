@@ -1,25 +1,14 @@
 import requests
 from create_procedure import create_procedure_resource
 from base import send_resource_to_hapi_fhir
+from buscarpaciente import get_patient_id_by_dni
 
 practitioner_id = "52960700"  
 
 fecha_procedimiento = "2024-11-20"
 
 dni_paciente = "42843082"
-url = f"https://hapi.fhir.org/baseR4/Patient?identifier=http://www.renaper.gob.ar/dni|{dni_paciente}"
-
-print("\n")
-print("BUSCANDO PACIENTE CON DNI: ", dni_paciente)
-print("\n")
-resp = requests.get(url).json()
-
-if resp["total"] == 0:
-    print("No se encontró el paciente.")
-    exit()
-
-patient_id = resp["entry"][0]["resource"]["id"]
-print(f"PACIENTE ENCONTRADO")
+patient_id = get_patient_id_by_dni(dni_paciente)
 print(f"URL → https://hapi.fhir.org/baseR4/Patient/{patient_id}\n")
 print("="*80)
 print("CREANDO PROCEDURE")
