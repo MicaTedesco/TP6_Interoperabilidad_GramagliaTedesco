@@ -10,7 +10,7 @@ def create_procedure_resource(patient_id, documento_paciente, practitioner_id, f
     procedure = Procedure.construct()
     procedure.status = "completed"
 
-    # SUBJECT + DNI ARGENTINO
+    # IDENTIFIER PACIENTE
     subject = Reference.construct()
     subject.reference = f"Patient/{patient_id}"
     subject.identifier = Identifier.construct()
@@ -18,7 +18,7 @@ def create_procedure_resource(patient_id, documento_paciente, practitioner_id, f
     subject.identifier.value = documento_paciente
     procedure.subject = subject
 
-    # CÓDIGO SNOMED CT - CURACIÓN DE HERIDA
+    # CÓDIGO SNOMED CT - PROCEDIMIENTO: CURACIÓN DE HERIDA
     procedure.code = CodeableConcept.construct()
     procedure.code.coding = [Coding.construct(system="http://snomed.info/sct", code="225358003", display="Curación de herida")]
     procedure.code.text = "Curación de herida"
@@ -26,14 +26,14 @@ def create_procedure_resource(patient_id, documento_paciente, practitioner_id, f
     # FECHA DEL PROCEDIMIENTO
     procedure.performedDateTime = fecha_procedimiento
 
-    # MOTIVO: HERIDA CORTANTE EN ANTEBRAZO IZQUIERDO
+    # CÓDIGO SNOMED CT - MOTIVO: HERIDA CORTANTE EN ANTEBRAZO IZQUIERDO
     procedure.reasonCode = [CodeableConcept.construct(coding=[Coding.construct(
         system="http://snomed.info/sct",
         code="10960321000119104",
         display="Herida cortante en antebrazo izquierdo"
     )])]
 
-    # OUTCOME
+    # RESULTADO
     procedure.outcome = CodeableConcept.construct(text="Herida limpia, sin signos de infección, buena evolución")
 
     # NOTA CLÍNICA
