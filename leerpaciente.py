@@ -1,4 +1,4 @@
-from patient import create_patient_resource
+from crearpaciente import create_patient_resource
 from base import send_resource_to_hapi_fhir, get_resource_from_hapi_fhir
 
 if __name__ == "__main__":
