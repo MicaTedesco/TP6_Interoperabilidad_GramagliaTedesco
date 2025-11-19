@@ -21,6 +21,6 @@
 Este repositorio contiene la resolución correspondiente a la actividad 3 del TP6, la cual consistió en el uso de recursos FHIR mediante la implementación de Python y la interacción con el servidor público de HAPI FHIR.
 
 ## Estructura
-- Actividad 3a - Crear y leer un recurso paciente, incluyendo el número de documento como identifier --> Archivo: [`crearpaciente.py`](crearpaciente.py) // [`leerpaciente.py`](leerpaciente.py) 
+- Actividad 3a - Crear y leer un recurso paciente, incluyendo el número de documento como identifier --> Archivos: [`crearpaciente.py`](crearpaciente.py) // [`leerpaciente.py`](leerpaciente.py) 
 - Actividad 3b - Búsqueda de pacientes por documento --> Archivo: [`buscarpaciente.py`](buscarpaciente.py)  
-- Actividad 3c - Crear un recurso Procedure --> Archivo: [`procedure.py`](procedure.py)  
+- Actividad 3c - Crear un recurso Procedure --> Archivos: [`create_procedure.py`](create_procedure.py) // [`crear_practitioner.py`](crear_practitioner.py) // [`workflow_final.py`](workflow_final.py)  
